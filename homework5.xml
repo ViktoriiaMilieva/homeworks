@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<items>
+    <item>
+        <hairdruer>
+            <name>Philips</name>
+            <color>black</color>
+            <manufacturer>China</manufacturer>
+            <weight>1.3</weight>
+            <material>plastic</material>
+        </hairdruer>
+    </item>
+    <item>
+        <cooker>
+            <name>Beko</name>
+            <color>white</color>
+            <manufacturer>Turkey</manufacturer>
+            <weight>30.2</weight>
+            <material>steel</material>
+        </cooker>
+    </item>
+    <item>
+        <pan>
+            <name>Tefal</name>
+            <color>black</color>
+            <manufacturer>france</manufacturer>
+            <weight>1.8</weight>
+            <material>aluminum</material>
+        </pan>
+    </item>
+    <item>
+        <cup>
+            <name>La cucina</name>
+            <color>beige</color>
+            <manufacturer>China</manufacturer>
+            <weight>0.3</weight>
+            <material>ceramics</material>
+        </cup>
+    </item>
+    <item>
+        <teapot>
+            <name>Aurora</name>
+            <color>gray</color>
+            <manufacturer>China</manufacturer>
+            <weight>1.5</weight>
+            <material>stainless steel</material>
+        </teapot>
+    </item>
+</items>

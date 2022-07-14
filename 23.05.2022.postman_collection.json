@@ -1,0 +1,294 @@
+{
+	"info": {
+		"_postman_id": "030427dd-5e1a-458f-aadc-fca6b73297b4",
+		"name": "23.05.2022",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20984290"
+	},
+	"item": [
+		{
+			"name": "User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check role is Student\", function () {",
+							"    var jsonData = pm.response.json();",
+							"",
+							"    pm.collectionVariables.set(\"USERID\", jsonData.id);",
+							"    pm.collectionVariables.set(\"USERNAME\", jsonData.name);",
+							"    pm.collectionVariables.set(\"USERPHONE\", jsonData.phone);",
+							"",
+							"    pm.expect(jsonData.role).to.eql(\"Student\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"{{$randomFullName}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"role\": \"Student\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://151.80.70.42:3000/api/users",
+					"protocol": "http",
+					"host": [
+						"151",
+						"80",
+						"70",
+						"42"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users After Create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check user was created\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var id = pm.collectionVariables.get(\"USERID\");",
+							"    var name = pm.collectionVariables.get(\"USERNAME\");",
+							"    var phone = pm.collectionVariables.get(\"USERPHONE\");",
+							"    var isFound = false",
+							"   for (i = 0; i < jsonData.length; i = i + 1) {",
+							"       if (jsonData[i].id == id && jsonData[i].name == name && jsonData[i].phone == phone) {",
+							"           console.log(jsonData[i])",
+							"           isFound = true",
+							"       }",
+							"   }",
+							"   pm.expect(isFound).to.equal(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://151.80.70.42:3000/api/users",
+					"protocol": "http",
+					"host": [
+						"151",
+						"80",
+						"70",
+						"42"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(pm.request.body)",
+							"",
+							"pm.collectionVariables.set(\"NEWUSERNAME\", jsonData.name);",
+							"pm.collectionVariables.set(\"NEWUSERPHONE\", jsonData.phone);",
+							"",
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": {{USERID}},\n    \"name\": \"{{$randomFullName}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\",\n    \"role\": \"Student\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://151.80.70.42:3000/api/users/{{USERID}}",
+					"protocol": "http",
+					"host": [
+						"151",
+						"80",
+						"70",
+						"42"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"{{USERID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users After Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check user was created\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var id = pm.collectionVariables.get(\"USERID\");",
+							"    var name = pm.collectionVariables.get(\"NEWUSERNAME\");",
+							"    var phone = pm.collectionVariables.get(\"NEWUSERPHONE\");",
+							"    var isFound = false",
+							"   for (i = 0; i < jsonData.length; i = i + 1) {",
+							"       if (jsonData[i].id == id && jsonData[i].name == name && jsonData[i].phone == phone) {",
+							"           console.log(jsonData[i])",
+							"           isFound = true",
+							"       }",
+							"   }",
+							"   pm.expect(isFound).to.equal(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://151.80.70.42:3000/api/users",
+					"protocol": "http",
+					"host": [
+						"151",
+						"80",
+						"70",
+						"42"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://151.80.70.42:3000/api/users/{{USERID}}",
+					"protocol": "http",
+					"host": [
+						"151",
+						"80",
+						"70",
+						"42"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"{{USERID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": ""
+		},
+		{
+			"key": "USERID",
+			"value": ""
+		},
+		{
+			"key": "USERNAME",
+			"value": ""
+		},
+		{
+			"key": "USERPHONE",
+			"value": ""
+		},
+		{
+			"key": "NEWUSERNAME",
+			"value": ""
+		},
+		{
+			"key": "NEWUSERPHONE",
+			"value": ""
+		}
+	]
+}
